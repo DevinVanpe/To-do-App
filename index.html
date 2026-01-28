@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <head> contains metadata, not visible content: Character Encoding / Page Title / CSS Link -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Todo App</title>
+
+    <!-- This links the CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Page Title -->
+    <h1>My To-do List</h1>
+    
+    <!-- Forms for adding todos -->
+     <form id="todo-form">
+        <!-- <form> used for input (Later): JS will intercept it / Prevent page refresh / Read the input value -->
+            <!-- <input> Where the user types a to-do -->
+        <input
+        type="text"
+        id="todo-input"
+        placeholder="Add a new task..."
+        >
+        <button>Add</button>
+     </form>
+
+     <!-- Lists where todos will appear -->
+    <ul id="todo-list"></ul>
+    <!-- <ul> Unordered List: Each <li> = one to-do / JS will generate these later -->
+        
+    <script src="script.js"></script>
+
+</body>
+</html>

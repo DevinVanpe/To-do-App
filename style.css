@@ -1,0 +1,39 @@
+  /* max-width + margin auto - Centers the app on the page */
+body {
+    font-family: Arial, sans-serif;
+    max-width: 400px;
+    margin: 40px auto;
+}
+
+h1 {
+    text-align: center;
+}
+
+/*  display: flex - Places "input" and "button" side by side*/
+form {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 8px;
+}
+
+button {
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+/*  list-style: none - Removes default bullet points */
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* li - Each "to-do" looks like a row */
+li {
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}

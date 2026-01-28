@@ -1,24 +1,53 @@
 console.log ("script loaded");
 
+// Grab references to HTML elements
 const form = document.getElementById("todo-form");
 const input = document.getElementById("todo-input");
 const list = document.getElementById("todo-list");
 
-// Source of truth (load from localStorage or fallback to empty array) Prevents crashes on first load
+// Applications state (source of truth) 
+// Load from localStorage or start empty (fallback to empty array)
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
 
-// Render function: UI is rebuilt from state / Prevents duplication / Keeps logic clean
+/*
+Renders the UI based on current state.
+Clears existing DOM and rebuilds from 'todos'.
+*/
 function renderTodos() {
-    // Clear the list first
     list.innerHTML = "";
 
-    // Loop through all todos
-    todos.forEach(function (todo) {
+    todos.forEach(function (todo, index) {
         const li = document.createElement("li");
-        li.textContent = todo;
+
+        // Displays the todo text
+        const span = document.createElement("span");
+        span.textContent = todo;
+
+        // Delete button
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "X";
+
+        // Remove todo when clicked
+        deleteBtn.addEventListener("click", function () {
+            deleteTodo(index);
+        });
+
+        li.appendChild(span);
+        li.appendChild(deleteBtn);
         list.appendChild(li);
     });
+}
+
+
+/*
+Removes a todo from state by index,
+updates storage, then re-renders UI
+ */
+function deleteTodo(index) {
+    todos.splice(index, 1);
+    localStorage.setItem("todos", JSON.stringify(todos));
+    renderTodos();
 }
 
 // Handle form submission
@@ -28,17 +57,18 @@ form.addEventListener("submit", function (event) {
     const todoText = input.value.trim();
     if (todoText === "") return;
 
-    // Update state
+    // Add new todo to state
     todos.push(todoText);
 
-    // Persist state
+    // Persist updated state
     localStorage.setItem("todos", JSON.stringify(todos));
     
-    // Re-render UI
+    // Re-render / Refresh UI
     renderTodos();
 
+    // Clear input field
     input.value = "";
 });
 
-// Initial render on page load
+// Initial render when page loads
 renderTodos();

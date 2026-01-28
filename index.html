@@ -13,13 +13,14 @@
 </head>
 <body>
 
-    <!-- Page Title -->
+    <!-- App Title -->
     <h1>My To-do List</h1>
     
-    <!-- Forms for adding todos -->
+    <!--
+    Form captures user input.
+    Submitting the form triggers JavaScript logic.
+    -->
      <form id="todo-form">
-        <!-- <form> used for input (Later): JS will intercept it / Prevent page refresh / Read the input value -->
-            <!-- <input> Where the user types a to-do -->
         <input
         type="text"
         id="todo-input"
@@ -28,10 +29,13 @@
         <button>Add</button>
      </form>
 
-     <!-- Lists where todos will appear -->
+     <!-- 
+     Todos list container.
+     Items are dynamically rendered by JavaScript.
+      -->
     <ul id="todo-list"></ul>
-    <!-- <ul> Unordered List: Each <li> = one to-do / JS will generate these later -->
-        
+
+    <!-- Load JavaScript AFTER HTML exists -->
     <script src="script.js"></script>
 
 </body>

@@ -10,18 +10,17 @@
 
 ## Current Stage
 
-**Stage 3 – State & Persistence (localStorage)**
+**Stage 4 – Delete Todos**
 
 ### Implemented Features
 - Add todo items
-- Dynamic DOM rendering from state
-- Persistent storage using localStorage
-- Input validation (trimmed, no empty todos)
+- Persistent storage with localStorage
+- State-driven rendering
+- Delete todos safely via state updates
 
 ### Not Yet Implemented
-- Delete todos
 - Completed / active state
-- Editing todos
+- Edit todos
 - Filtering
 - Backend (Node.js / MySQL)
 

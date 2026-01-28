@@ -18,6 +18,55 @@
 - Fixed bugs caused by redeclaring variables
 - Learned importance of render-driven UI
 
+## Stage 4 – 
+- Learned to delete items by updating state, not the DOM
+- Used array indexes to link UI actions to data
+- Reinforced render-driven UI pattern
+- Understood why direct DOM manipulation causes bugs
+
+
+## Full Breakdown
+
+### HTML
+- `<form>` captures user input and triggers submit events
+- `<input>` holds the todo text
+- `<ul>` is an empty container populated by JavaScript
+- HTML contains no logic — only structure
+
+### CSS
+- Flexbox is used to align input, buttons, and list items
+- Styling is minimal and does not affect application logic
+- CSS is only concerned with layout and appearance
+
+### JavaScript (script.js)
+
+#### Element Selection
+- `getElementById` connects JavaScript to the DOM
+- JavaScript can only control elements that already exist
+
+#### State
+- `todos` array is the single source of truth
+- UI never stores data — it reflects state
+
+#### localStorage
+- Used to persist todos between page reloads
+- Requires JSON serialization
+
+#### renderTodos()
+- Clears the existing UI
+- Rebuilds the list from the current state
+- Prevents duplication and UI inconsistencies
+
+#### deleteTodo(index)
+- Removes a todo from state
+- Keeps storage and UI in sync
+- Uses index to link UI actions to data
+
+#### Form Submission
+- Prevents default browser refresh
+- Validates input
+- Updates state, storage, and UI in order
+
 ## Key Takeaways So Far
 - JavaScript controls behaviour and data flow, not just visual changes
 - The DOM is a *rendered output* of application state, not the source of truth

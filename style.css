@@ -34,6 +34,9 @@ ul {
 
 /* li - Each "to-do" looks like a row */
 li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 8px;
     border-bottom: 1px solid #ccc;
 }

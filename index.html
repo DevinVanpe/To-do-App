@@ -17,26 +17,25 @@
     <h1>My To-do List</h1>
     
     <!--
-    Form captures user input.
+    Add Todo (form captures user input).
     Submitting the form triggers JavaScript logic.
     -->
      <form id="todo-form">
-        <input
-        type="text"
-        id="todo-input"
-        placeholder="Add a new task..."
-        >
+        <input id="todo-input" type="text" placeholder="Add a new task..." />
         <button>Add</button>
      </form>
 
-     <!-- 
-     Todos list container.
-     Items are dynamically rendered by JavaScript.
-      -->
+     <!-- Filters -->
+      <div id="filters">
+        <button data-filter="all">All</button>
+        <button data-filter="active">Active</button>
+        <button data-filter="completed">Completed</button>
+    </div>
+
+     <!-- Todos list container -->
     <ul id="todo-list"></ul>
 
     <!-- Load JavaScript AFTER HTML exists -->
     <script src="script.js"></script>
-
 </body>
 </html>

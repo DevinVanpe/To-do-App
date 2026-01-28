@@ -1,7 +1,7 @@
 ## Tech Stack
 
 - HTML5
-- CSS3
+- CSS3 (Dark / Neon Theme)
 - Vanilla JavaScript
 - VSCode
 - Git & GitHub
@@ -10,19 +10,37 @@
 
 ## Current Stage
 
-**Stage 4 – Delete Todos**
+## Stage 5 – State, Filtering & UI Polish
+
+This stage expands the application beyond basic CRUD into **structured state management**, **UI-driven filtering**, and **intentional user experience design**.
+
+The focus is no longer just functionality, but:
+- Clear separation of concerns
+- Predictable render flow
+- Visual clarity and interaction feedback
+
+---
 
 ### Implemented Features
-- Add todo items
-- Persistent storage with localStorage
-- State-driven rendering
-- Delete todos safely via state updates
+
+- Add todos
+- Delete todos
+- Mark todos as completed
+- Filter todos (All / Active / Completed)
+- Active filter visual indication
+- Persistent state using `localStorage`
+- Render driven UI (DOM rebuilt from state)
+- Dark mode neon-themed interface
+- Focus, hover, and active interaction states
+
+---
 
 ### Not Yet Implemented
-- Completed / active state
+
 - Edit todos
-- Filtering
-- Backend (Node.js / MySQL)
+- Input validation edge cases
+- Backend persistence (Node.js / MySQL)
+- Authentication / multi-user support
 
 ---
 
@@ -31,18 +49,21 @@
 1. Clone or download the repository
 2. Open `index.html` using Live Server or a browser
 3. Type a todo and click **Add**
+4. Use filters to view Active or Completed tasks
 
 ---
 
 ## Learning Goals
 
-This project is being built in stages to learn:
+This project is being built incrementally to learn:
 
 - DOM manipulation
 - Event handling
-- State management
+- State-driven UI rendering
+- Separation of data, structure, and presentation
+- UI state vs application state
 - Progressive enhancement
-- Backend integration (later stages)
+- Preparing a frontend for backend integration
 
 ---
 
@@ -52,10 +73,10 @@ This project is being built in stages to learn:
 2. JavaScript interactivity
 3. localStorage persistence
 4. Delete functionality
-5. Completed / Active state
+5. Completion, filtering & UI polish
 6. Edit todos
-7. Filtering
-8. Validation & Edge cases
-9. Git workflow
-10. Node.js backend
+7. Validation & edge cases
+8. Git workflow refinement
+9. Node.js backend
+10. REST API
 11. MySQL database

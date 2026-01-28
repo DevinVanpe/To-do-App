@@ -1,74 +1,93 @@
-console.log ("script loaded");
+console.log ("Stage 5 loaded");
 
-// Grab references to HTML elements
+// STATE (source of truth) / Load from localStorage or start empty (fallback to empty array)
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
+let currentFilter = "all";
+
+// DOM Elements
 const form = document.getElementById("todo-form");
 const input = document.getElementById("todo-input");
 const list = document.getElementById("todo-list");
+const filters = document.getElementById("filters");
 
-// Applications state (source of truth) 
-// Load from localStorage or start empty (fallback to empty array)
-let todos = JSON.parse(localStorage.getItem("todos")) || [];
-
-
-/*
-Renders the UI based on current state.
-Clears existing DOM and rebuilds from 'todos'.
-*/
+// Renders the UI based on current state / Clears existing DOM and rebuilds from 'todos'.
 function renderTodos() {
     list.innerHTML = "";
 
-    todos.forEach(function (todo, index) {
+    let filteredTodos = todos.filter(todo => {
+        if (currentFilter === "completed") return todo.completed;
+        if (currentFilter === "active") return !todo.completed;
+        return true;
+    });
+
+    filteredTodos.forEach((todo, index) => {
         const li = document.createElement("li");
 
-        // Displays the todo text
         const span = document.createElement("span");
-        span.textContent = todo;
+        span.textContent = todo.text;
 
-        // Delete button
+        if (todo.completed) {
+            span.classList.add("completed");
+        }
+
+        // Toggle completed on click
+        span.addEventListener("click", () => {
+            todo.completed = !todo.completed;
+            saveAndRender();
+        });
+
         const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "X";
-
-        // Remove todo when clicked
-        deleteBtn.addEventListener("click", function () {
-            deleteTodo(index);
+        deleteBtn.textContent = "X"; // Label for button
+        deleteBtn.addEventListener("click", () => {
+            todos.splice(index, 1); // Remove the todo from state
+            saveAndRender();
         });
 
         li.appendChild(span);
         li.appendChild(deleteBtn);
+
         list.appendChild(li);
     });
 }
 
-
-/*
-Removes a todo from state by index,
-updates storage, then re-renders UI
- */
-function deleteTodo(index) {
-    todos.splice(index, 1);
+// Helpers
+function saveAndRender() {
     localStorage.setItem("todos", JSON.stringify(todos));
     renderTodos();
 }
 
-// Handle form submission
-form.addEventListener("submit", function (event) {
-    event.preventDefault();
+// Events
+form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-    const todoText = input.value.trim();
-    if (todoText === "") return;
+    const text = input.value.trim();
+    if (text === "") return;
 
-    // Add new todo to state
-    todos.push(todoText);
+    todos.push({
+        text: text,
+        completed: false
+    });
 
-    // Persist updated state
-    localStorage.setItem("todos", JSON.stringify(todos));
-    
-    // Re-render / Refresh UI
-    renderTodos();
-
-    // Clear input field
     input.value = "";
+    saveAndRender();
 });
 
-// Initial render when page loads
+filters.addEventListener("click", (e) => {
+    if (e.target.tagName !== "BUTTON") return;
+
+    // Update application state
+    currentFilter = e.target.dataset.filter;
+
+    // Remove active class from all buttons
+    filters.querySelectorAll("button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    // Add active class to clicked button
+    e.target.classList.add("active");
+
+    // Re-render UI
+    renderTodos();
+});
+
 renderTodos();

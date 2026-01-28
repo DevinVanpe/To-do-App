@@ -10,18 +10,17 @@
 
 ## Current Stage
 
-**Stage 2 – Dynamic UI with JavaScript**
+**Stage 3 – State & Persistence (localStorage)**
 
 ### Implemented Features
-- Add todo items via form submission
-- Dynamic DOM manipulation
-- Prevent page refresh on submit
-- Input validation (no empty todos)
+- Add todo items
+- Dynamic DOM rendering from state
+- Persistent storage using localStorage
+- Input validation (trimmed, no empty todos)
 
 ### Not Yet Implemented
-- Persistence (localStorage / database)
 - Delete todos
-- Completed state
+- Completed / active state
 - Editing todos
 - Filtering
 - Backend (Node.js / MySQL)

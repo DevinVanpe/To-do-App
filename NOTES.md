@@ -1,4 +1,4 @@
-# Project Notes – Todo App
+# Project Notes – Prysm Task App
 
 ## Stage 1 – Static Structure
 - Built static UI with HTML & CSS
@@ -26,99 +26,90 @@
 - Understood how improper DOM manipulation causes bugs
 
 ## Stage 5 – Completion, Filtering & UI State
+- Upgraded todos from strings to objects
+- Introduced completed state per task
+- Clicking a task toggles completion
+- Filters control rendered output, not stored data
+- UI rebuilt from filtered state every render
+- localStorage persists full task objects
+- Visual filter state added for UX clarity
 
-### Data Model
-- Todos upgraded from simple strings to objects:
-  - `text`
-  - `completed`
-- Application state models real world data more accurately
+## Stage 6 – Editing & UI Polish (Prysm)
 
-### Completion Logic
-- Clicking a todo toggles its completed state
-- Completion affects both rendering and persistence
-- Completed state is purely data-driven
+### Task Editing
+- Tasks can be edited via double-click
+- Editing replaces text with an input field
+- Enter commits changes
+- Escape cancels edits
+- Editing updates application state, not DOM directly
 
-### Filtering
-- Filters do not change stored data
-- Filters control **what is rendered**, not what exists
-- `currentFilter` is ephemeral UI state
-- UI is rebuilt from filtered state every render
+### Keyboard Interaction
+- Keyboard controls treated as first-class UI input
+- Improves accessibility and usability
+- Reinforced importance of event types (keydown vs click)
 
-### UI State vs Application State
-- Application state lives in JavaScript objects and arrays
-- Visual state is represented with CSS classes
-- Events synchronize the two without mixing responsibilities
+### UI Architecture
+- Task list is a rendered projection of state
+- No persistent UI state stored in DOM
+- CSS strictly handles presentation
+- JavaScript strictly handles behavior and data
 
-### Styling & UX Improvements
-- Introduced dark theme for reduced eye strain
-- Neon accents used sparingly to highlight interaction
-- Filter buttons styled as tabs with active indication
-- Input field styled to match application theme
-- Hover and focus states added for clarity
-- UI polish applied without impacting logic
+### Styling & UX
+- Dark theme refined for long sessions
+- Reduced neon glare in favor of clean, sharp accents
+- Title animation slowed for subtle “breathing” effect
+- Filter buttons clearly indicate active state
+- Task hover glow restored for visual feedback
+
 
 ---
+
 
 ## Full Breakdown
 
 ### HTML
-- `<form>` captures user input
-- `<input>` holds todo text
-- `<ul>` is an empty container populated by JavaScript
-- HTML contains structure only, no logic
+- Structure only no logic
+- .app wraps the entire application
+- <h1> used for branding (Prysm)
+- <input> and <button> grouped for task creation
+- <ul> acts as render target for tasks
+- Filter buttons define UI intent via data-filter
 
 ### CSS
-- Flexbox used for layout and alignment
-- Styling does not influence application logic
-- Visual feedback handled via classes
-- Neon effects reserved for focus and active states
+- Controls layout, spacing, color, and animation
+- No business logic
+- Visual feedback reinforces state changes
+- Designed to support scalability without rewrites
 
-### JavaScript (script.js)
+## JavaScript (script.js)
 
-#### Element Selection
-- `getElementById` connects JavaScript to the DOM
-- JavaScript can only interact with existing elements
+### State
+- tasks array is the single source of truth
+- Each task is an object (text, completed)
+- UI never stores permanent data
 
-#### State
-- `todos` array is the single source of truth
-- `currentFilter` controls view logic only
+### Rendering
+- UI cleared and rebuilt every render
+- Prevents duplication and desync bugs
+- Filters apply only at render time
 
-#### localStorage
-- Persists todos across reloads
-- Requires JSON serialization and parsing
-
-#### renderTodos()
-- Clears the existing UI
-- Applies filtering logic
-- Rebuilds UI from state every time
-- Prevents duplication and desynchronisation
-
-#### Deletion
-- Removes todos from state, not the DOM
-- Keeps storage and UI consistent
-
-#### Form Submission
-- Prevents default browser refresh
-- Validates input
-- Updates state → storage → UI in order
+### Editing
+- Edit mode is temporary UI state
+- Final result always flows back into state
+- State changes trigger full re-render
 
 ---
 
-## Key Takeaways
 
-- JavaScript controls behaviour, data flow, and application state
+## Key Takeaways (Updated)
+
+- JavaScript controls behavior and data flow, not visuals
 - The DOM is a rendered output, not the source of truth
-- Application state should live in JavaScript data structures
-- UI should always be rebuilt from state to avoid bugs
-- Visual state should not be used as logic
-- `localStorage` only stores strings
-- `JSON.stringify` and `JSON.parse` enable structured persistence
-- Code order matters — elements must exist before interaction
-- Direct DOM mutation leads to subtle bugs
-- Debugging with `console.log` clarifies execution flow
-- Application state should model real-world data
-- UI is a filtered projection of state
-- User interactions update state first, then re-render
-- Some state is persistent (data), some is ephemeral (UI)
-- Early architectural decisions affect scalability
-- Clean render cycles make new features easier to add
+- Application state should live in JavaScript objects
+- UI should always be rebuilt from state
+- Editing is a state transition, not a DOM mutation
+- Keyboard interactions are part of core UX
+- Visual polish should never compromise architecture
+- Clean separation of concerns prevents feature regression
+- Small structural decisions scale into big wins later
+- Now have a frontend architecture ready for a backend

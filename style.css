@@ -1,262 +1,274 @@
-/* == GLOBAL / APP CONTAINER == */
+/* ===== GLOBAL ===== */
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #121212;
+    color: #bbb;
+}
+
+/* ===== APP CONTAINER ===== */
+
+.app {
     max-width: 500px;
     margin: 40px auto;
     padding: 20px;
-
     background-color: #121212;
-    color: #eee;
-
     border-radius: 10px;
+
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* == TITLE (NEON HEADER) == */
-
-h1 {
-    text-align: center;
-    font-size: 2.5em;
+/* == APP TITLE == */
+.title {
+    font-family: 'Arial Black', 'Impact', sans-serif;
+    text-transform: uppercase;
+    font-size: 3em;
     letter-spacing: 2px;
-    margin-bottom: 40px;
-
-    color: #00ff00;
-    position: relative;
-
+    text-align: center;
+    color: #000000;
     text-shadow:
         0 0 5px #00ff00,
         0 0 10px #00ff00,
         0 0 20px #00ff00;
 
-    animation: neonPulse 1.5s ease-in-out infinite alternate;
+    /* Gentle breathing animation */
+    animation: titleBreath 4s ease-in-out infinite alternate;
+    margin-bottom: 50px;
+    position: relative;
 }
 
-@keyframes neonPulse {
-    from {
+@keyframes titleBreath {
+    0% {
         text-shadow:
             0 0 5px #00ff00,
             0 0 10px #00ff00,
             0 0 20px #00ff00;
+        color: #000000;
     }
-    to {
+    50% {
         text-shadow:
+            0 0 8px #00ff00,
+            0 0 15px #00ff00,
+            0 0 25px #00ff00;
+        color: #000000;
+    }
+    100% {
+        text-shadow:
+            0 0 5px #00ff00,
             0 0 10px #00ff00,
-            0 0 20px #00ff00,
-            0 0 30px #00ff00;
+            0 0 20px #00ff00;
+        color: #000000;
     }
 }
 
-/* Electric underline */
-h1::after {
-    content: "";
+/* Static electric underline */
+.title .electric-underline {
     display: block;
     width: 60%;
     height: 4px;
     margin: 8px auto 0;
+    background-color: #000000;
 
-    background-color: #00ff00;
-    border-radius: 2px;
-
+    /* Static soft glow */
     box-shadow:
         0 0 5px #00ff00,
-        0 0 15px #00ff00,
-        0 0 30px #00ff00;
-
-    animation: electricPulse 1.2s ease-in-out infinite alternate;
+        0 0 10px #00ff00,
+        0 0 15px #00ff00;
+    border-radius: 2px;
 }
 
-@keyframes electricPulse {
-    from {
-        transform: scaleX(1);
-        opacity: 0.8;
-    }
-    to {
-        transform: scaleX(1.05);
-        opacity: 1;
-    }
-}
+/* Static electric underline */
+.title .electric-underline {
+    display: block;
+    width: 60%;
+    height: 4px;
+    margin: 8px auto 0;
+    background-color: #000000;
 
-/* == INPUT + ADD BUTTON == */
-
-input {
-    flex: 1;
-    padding: 12px 14px;
-    font-size: 1rem;
-
-    background-color: #1a1a1a;
-    color: #eee;
-
-    border: 1px solid #2a2a2a;
-    border-radius: 8px;
-
-    outline: none;
-
-    transition:
-        border-color 0.2s,
-        box-shadow 0.25s,
-        background-color 0.2s;
-}
-
-input:focus {
-    border-color: #00ff99;
-
+    /* Static soft glow */
     box-shadow:
-        0 0 6px rgba(0, 255, 153, 0.4),
-        0 0 12px rgba(0, 255, 153, 0.25);
-
-    background-color: #141414;
+        0 0 5px #00ff00,
+        0 0 10px #00ff00,
+        0 0 15px #00ff00;
+    border-radius: 2px;
 }
 
-input::placeholder {
-    color: #777;
-    letter-spacing: 0.5px;
+/* Static electric underline */
+.title .electric-underline {
+    display: block;
+    width: 50%;
+    height: 4px;
+    margin: 8px auto 0;
+    background-color: #000000;
+
+    /* Static glow */
+    box-shadow:
+        0 0 5px #00ff00,
+        0 0 10px #00ff00,
+        0 0 20px #00ff00;
+    border-radius: 2px;
 }
 
-form {
+
+.electric-underline {
+    display: block;
+    width: 40%;
+    height: 4px;
+    margin: 8px auto 0;
+    background: #00ff00;
+    box-shadow: 0 0 30px #00ff00;
+}
+
+/* ===== INPUT ===== */
+
+.input-group {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
 }
 
-/* Add button */
-form button {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-
-    background-color: #00aa44;
+#taskInput {
+    flex: 1;
+    padding: 12px;
+    background: #111;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
     color: #fff;
-
-    transition: background-color 0.2s, box-shadow 0.2s;
 }
 
-form button:hover {
-    background-color: #00ff66;
-    box-shadow:
-        0 0 10px #00ff66,
-        0 0 20px #00ff66;
+#addTaskBtn {
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    background: #006428;
+    color: white;
+    cursor: pointer;
 }
 
-/* == FILTER BUTTONS == */
+#addTaskBtn:hover {
+    background: #01933c;
+    box-shadow: 0 0 5px #00ff00;
+}
 
-#filters {
+/* ===== FILTERS ===== */
+
+.filters {
     display: flex;
     justify-content: center;
     gap: 12px;
-    margin: 25px 0;
+    margin-bottom: 20px;
 }
 
-#filters button {
+.filter-btn {
     padding: 8px 18px;
-     border-radius: 999px; /* pill shape*/
+    border-radius: 999px; /* pill shape */
     border: none;
     cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-
-    background-color: #1e1e1e;
+    background: #1e1e1e;
     color: #bbb;
-
-    transition: color 0.02s, transform 0.15s, box-shadow 0.2s;
 }
 
-#filters button:hover {
-    transform: translateY(-1px);
-    color: #fff;
+.filter-btn:hover {
+    background: #1e1e1e;
+    box-shadow: 0 0 15px #fff;
 }
 
-/* Filter colour themes */
-#filters button[data-filter="all"].active {
-    color: #f5fd18;
-    box-shadow: 0 0 10px rgb(222, 250, 37);
-}
-
-#filters button[data-filter="active"].active {
-    color: #ffaa00;
-    box-shadow: 0 0 12px rgba(255,170,0,0.6);
-}
-
-#filters button[data-filter="completed"].active {
-    color: #66ff99;
-    box-shadow: 0 0 12px rgba(102,255,153,0.6);
-}
-
-/* Active filter indicator */
-#filters button.active {
-    color: #00ff99;
-
-    box-shadow: 
-    0 0 8px rgba(0, 255, 153, 0.6),
-    0 0 16px rgba(0, 255, 153, 0.4);
-
+.filter-btn.active {
     transform: translateY(-2px);
 }
 
-#filters button.active::after {
-    content: "";
-    display: block;
-    height: 2px;
-    width: 60%;
-    margin: 6px auto 0;
-    background-color: currentColor;
-    box-shadow: 0 0 6px currentColor;
+/* Active filter colours by type */
+.filter-btn[data-filter="all"].active {
+    color: #f5fd18; /* bright yellow */
+    box-shadow: 0 0 10px rgb(222, 250, 37);
 }
 
-/* == TODO LIST == */
+.filter-btn[data-filter="active"].active {
+    color: #ffaa00; /* neon orange */
+    box-shadow: 0 0 12px rgba(255, 170, 0, 0.6);
+}
 
-ul {
+.filter-btn[data-filter="completed"].active {
+    color: #66ff99; /* neon green */
+    box-shadow: 0 0 12px rgba(102, 255, 153, 0.6);
+}
+
+
+/* ===== TODO LIST ===== */
+
+#taskList {
     list-style: none;
     padding: 0;
-    margin-top: 20px;
+}
+
+#taskList li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 12px;
+    margin-bottom: 10px;
+
+    background: #1e1e1e;
+    border-radius: 8px;
+
+    max-width: 100%;
+}
+
+#taskList li span {
+    flex: 1;
+    cursor: pointer;
+}
+
+#taskList li.completed span {
+    text-decoration: line-through;
+    opacity: 0.6;
 }
 
 li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     padding: 12px 15px;
     margin-bottom: 10px;
-
+    border-radius: 10px;
     background-color: #1e1e1e;
-    border-radius: 8px;
-
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.05);
     transition: transform 0.1s, box-shadow 0.2s;
 }
 
 li:hover {
     transform: translateX(-2px);
-    box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+    box-shadow: 0 0 10px #bbb;
 }
 
-/* Completed todo */
-.completed {
-    text-decoration: line-through;
-    color: #888;
-    opacity: 0.8;
+/* ===== EDIT MODE ===== */
+
+li.editing {
+    background: rgb(255,255,255,0.5);
 }
 
-/* == DELETE BUTTON == */
+.edit-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+}
+
+/* ===== DELETE BUTTON ===== */
 
 li button {
-    padding: 4px 8px;
+    margin-left: 10px;
+    background: #680000;
+    color: white;
     border: none;
     border-radius: 4px;
+    padding: 4px 8px;
     cursor: pointer;
-
-    background-color: #aa0000;
-    color: #fff;
-
-    box-shadow: 0 0 5px #aa0000;
-    transition: box-shadow 0.2s, background-color 0.2s;
 }
 
 li button:hover {
-    background-color: #ff0000;
-    box-shadow:
-        0 0 10px #ff0000,
-        0 0 20px #ff0000;
+    background: #ff0000;
+    box-shadow: 0 0 10px #ff0000;
 }

@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- <head> contains metadata, not visible content: Character Encoding / Page Title / CSS Link -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Title -->
-    <title>Todo App</title>
+    <title>Task App</title>
 
-    <!-- This links the CSS file -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- App Title -->
-    <h1>My To-do List</h1>
-    
-    <!--
-    Add Todo (form captures user input).
-    Submitting the form triggers JavaScript logic.
-    -->
-     <form id="todo-form">
-        <input id="todo-input" type="text" placeholder="Add a new task..." />
-        <button>Add</button>
-     </form>
+<div class="app">
+    <h1 class="title">
+        Prysm
+        <span class="electric-underline"></span>
+    </h1>
 
-     <!-- Filters -->
-      <div id="filters">
-        <button data-filter="all">All</button>
-        <button data-filter="active">Active</button>
-        <button data-filter="completed">Completed</button>
+    <!-- Input -->
+    <div class="input-group">
+        <input
+            id="taskInput"
+            type="text"
+            placeholder="Add a new task..."
+            aria-label="Add a new task"
+        />
+        <button id="addTaskBtn">Add</button>
     </div>
 
-     <!-- Todos list container -->
-    <ul id="todo-list"></ul>
+    <!-- Filters -->
+    <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="active">Active</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+    </div>
 
-    <!-- Load JavaScript AFTER HTML exists -->
-    <script src="script.js"></script>
+    <!-- Task list -->
+    <ul id="taskList"></ul>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

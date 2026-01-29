@@ -10,35 +10,40 @@
 
 ## Current Stage
 
-## Stage 5 – State, Filtering & UI Polish
+## Stage 6 – Editable Tasks & UI Polish (Prysm)
 
-This stage expands the application beyond basic CRUD into **structured state management**, **UI-driven filtering**, and **intentional user experience design**.
+This stage evolves the app from a basic todo list into a proper task manager named Prysm.
 
-The focus is no longer just functionality, but:
-- Clear separation of concerns
-- Predictable render flow
-- Visual clarity and interaction feedback
+Focus areas:
+
+- Task editing
+- Keyboard interaction
+- UI consistency
+- State-driven architecture
+- Visual polish for long-term usability
 
 ---
 
 ### Implemented Features
 
-- Add todos
-- Delete todos
-- Mark todos as completed
-- Filter todos (All / Active / Completed)
-- Active filter visual indication
-- Persistent state using `localStorage`
-- Render driven UI (DOM rebuilt from state)
-- Dark mode neon-themed interface
-- Focus, hover, and active interaction states
+- Add tasks
+- Delete tasks
+- Mark tasks as completed
+- Edit tasks via double-click
+- Save edits using Enter
+- Cancel edits using Escape
+- Filter tasks (All / Active / Completed)
+- Persistent state using localStorage
+- Visual filter state indicators
+- Dark theme UI with clean, sharp green accent
 
 ---
 
 ### Not Yet Implemented
 
-- Edit todos
-- Input validation edge cases
+- Drag & reorder tasks
+- Task priority
+- Due dates
 - Backend persistence (Node.js / MySQL)
 - Authentication / multi-user support
 
@@ -47,36 +52,37 @@ The focus is no longer just functionality, but:
 ## How to Run
 
 1. Clone or download the repository
-2. Open `index.html` using Live Server or a browser
-3. Type a todo and click **Add**
-4. Use filters to view Active or Completed tasks
+2. Open index.html in a browser (or Live Server)
+3. Add tasks using the input field
+4. Double-click a task to edit
+5. Use filters to change task views
 
 ---
 
 ## Learning Goals
 
-This project is being built incrementally to learn:
+This project is being built to learn:
 
 - DOM manipulation
 - Event handling
-- State-driven UI rendering
-- Separation of data, structure, and presentation
-- UI state vs application state
-- Progressive enhancement
-- Preparing a frontend for backend integration
+- Application state management
+- Render-driven UI architecture
+- Keyboard accessibility
+- UI/UX refinement
+- Preparing frontend logic for backend integration
 
 ---
 
-## Planned Stages
+## Planned Stages (Updated)
 
 1. Static HTML & CSS
 2. JavaScript interactivity
 3. localStorage persistence
 4. Delete functionality
 5. Completion, filtering & UI polish
-6. Edit todos
+6. Task editing & UI polish
 7. Validation & edge cases
-8. Git workflow refinement
-9. Node.js backend
-10. REST API
+8. Refactor & modularisation
+9. Git workflow discipline
+10. Node.js backend & REST API
 11. MySQL database

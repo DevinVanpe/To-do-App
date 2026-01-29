@@ -1,70 +1,132 @@
-console.log ("Stage 5 loaded");
+console.log("Stage 6.1 loaded");
 
-// STATE (source of truth) / Load from localStorage or start empty (fallback to empty array)
-let todos = JSON.parse(localStorage.getItem("todos")) || [];
+
+// APPLICATION STATE
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 let currentFilter = "all";
 
-// DOM Elements
-const form = document.getElementById("todo-form");
-const input = document.getElementById("todo-input");
-const list = document.getElementById("todo-list");
+
+// DOM REFERENCES
+
+const input = document.getElementById("taskInput");
+const addBtn = document.getElementById("addTaskBtn");
+const list = document.getElementById("taskList");
 const filters = document.getElementById("filters");
 
-// Renders the UI based on current state / Clears existing DOM and rebuilds from 'todos'.
-function renderTodos() {
+
+// RENDER LOGIC
+
+function renderTasks() {
     list.innerHTML = "";
 
-    let filteredTodos = todos.filter(todo => {
-        if (currentFilter === "completed") return todo.completed;
-        if (currentFilter === "active") return !todo.completed;
-        return true;
-    });
+    tasks
+        .filter(task => {
+            if (currentFilter === "active") return !task.completed;
+            if (currentFilter === "completed") return task.completed;
+            return true;
+        })
+        .forEach((task, index) => {
+            const li = document.createElement("li");
+            li.className = task.completed ? "completed" : "";
+            
+            if (task.editing) {
+                const input = document.createElement("input");
+                input.className = "edit-input";
+                input.value = task.text;
+                li.appendChild(input);
+                input.focus();
 
-    filteredTodos.forEach((todo, index) => {
-        const li = document.createElement("li");
+                input.addEventListener("keydown", e => {
+                    if (e.key === "Enter") {
+                        const trimmed = input.value.trim();
+                        if (trimmed) task.text = trimmed;
+                        task.editing = false;
+                        saveAndRender();
+                    }
+                    if (e.key === "Escape") {
+                        task.editing = false;
+                        renderTasks();
+                    }
+                });
 
-        const span = document.createElement("span");
-        span.textContent = todo.text;
+            } else {
+                const span = document.createElement("span");
+                span.textContent = task.text;
+                li.appendChild(span);
 
-        if (todo.completed) {
-            span.classList.add("completed");
+                // Toggle completion on click
+                span.addEventListener("click", () => {
+                    task.completed = !task.completed;
+                    saveAndRender();
+                });
+
+                // Double click to edit
+                span.addEventListener("dblclick", () => {
+                    task.editing = true;
+                    renderTasks();
+                });
+            }
+
+            // Delete button
+            const delBtn = document.createElement("button");
+            delBtn.textContent = "X";
+            delBtn.addEventListener("click", () => {
+                tasks.splice(index, 1);
+                saveAndRender();
+            });
+            li.appendChild(delBtn);
+
+            list.appendChild(li);
+        });
+}
+
+
+
+// EDIT MODE
+
+function startEdit(li, task) {
+    li.classList.add("editing");
+    li.innerHTML = "";
+
+    const editInput = document.createElement("input");
+    editInput.className = "edit-input";
+    editInput.value = task.text;
+
+    li.appendChild(editInput);
+    editInput.focus();
+
+    editInput.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+            const trimmed = editInput.value.trim();
+            if (trimmed) {
+                task.text = trimmed;
+                saveAndRender();
+            }
         }
 
-        // Toggle completed on click
-        span.addEventListener("click", () => {
-            todo.completed = !todo.completed;
-            saveAndRender();
-        });
-
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "X"; // Label for button
-        deleteBtn.addEventListener("click", () => {
-            todos.splice(index, 1); // Remove the todo from state
-            saveAndRender();
-        });
-
-        li.appendChild(span);
-        li.appendChild(deleteBtn);
-
-        list.appendChild(li);
+        if (e.key === "Escape") {
+            renderTasks();
+        }
     });
 }
 
-// Helpers
+// HELPERS
+
 function saveAndRender() {
-    localStorage.setItem("todos", JSON.stringify(todos));
-    renderTodos();
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    renderTasks();
 }
 
-// Events
-form.addEventListener("submit", (e) => {
-    e.preventDefault();
 
+// EVENTS
+
+addBtn.addEventListener("click", () => {
     const text = input.value.trim();
-    if (text === "") return;
+    if (!text) return;
 
-    todos.push({
-        text: text,
+    tasks.push({
+        text,
         completed: false
     });
 
@@ -72,22 +134,25 @@ form.addEventListener("submit", (e) => {
     saveAndRender();
 });
 
-filters.addEventListener("click", (e) => {
-    if (e.target.tagName !== "BUTTON") return;
-
-    // Update application state
-    currentFilter = e.target.dataset.filter;
-
-    // Remove active class from all buttons
-    filters.querySelectorAll("button").forEach(btn => {
-        btn.classList.remove("active");
-    });
-
-    // Add active class to clicked button
-    e.target.classList.add("active");
-
-    // Re-render UI
-    renderTodos();
+input.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+        addBtn.click();
+    }
 });
 
-renderTodos();
+filters.addEventListener("click", e => {
+    if (e.target.tagName !== "BUTTON") return;
+    currentFilter = e.target.dataset.filter;
+
+    filters
+        .querySelectorAll("button").forEach(btn => btn.classList.remove("active"));
+
+    e.target.classList.add("active");
+
+    renderTasks();
+});
+
+
+// INITIAL RENDER
+
+renderTasks();

@@ -13,8 +13,17 @@ const input = document.getElementById("taskInput");
 const addBtn = document.getElementById("addTaskBtn");
 const list = document.getElementById("taskList");
 const filters = document.getElementById("filters");
-const completeSound = new Audio('sounds/complete.mp3');
-const deleteSound = new Audio('sounds/delete.mp3');
+const completeSound = new Audio('sounds/complete-sfx.mp3');
+const deleteSound = new Audio('sounds/delete-sfx.mp3');
+const addSound = new Audio('sounds/add-sfx.mp3');
+addSound.preload = "auto"; // ensures playback is instant
+
+
+// SOUND VOLUMES
+
+addSound.volume = 1;      // 100% volume
+deleteSound.volume = 0.3;   // 30% volume
+completeSound.volume = 0.5; // 50% volume
 
 
 // RENDER LOGIC
@@ -60,11 +69,10 @@ function renderTasks() {
                 // Toggle completion on click
                 span.addEventListener("click", () => {
                     const wasCompleted = task.completed;
-
                     task.completed = !task.completed;
 
                     // Sound effect only when marking as complete
-                    if (!wasCompleted && task.complete) {
+                    if (!wasCompleted && task.completed) {
                         completeSound.currentTime = 0;
                         completeSound.play();
                     }
@@ -145,6 +153,10 @@ addBtn.addEventListener("click", () => {
         text,
         completed: false
     });
+
+    // Sound effect for Add
+    addSound.currentTime = 0;
+    addSound.play();
 
     input.value = "";
     saveAndRender();

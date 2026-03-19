@@ -13,6 +13,8 @@ const input = document.getElementById("taskInput");
 const addBtn = document.getElementById("addTaskBtn");
 const list = document.getElementById("taskList");
 const filters = document.getElementById("filters");
+const completeSound = new Audio('sounds/complete.mp3');
+const deleteSound = new Audio('sounds/delete.mp3');
 
 
 // RENDER LOGIC
@@ -57,7 +59,16 @@ function renderTasks() {
 
                 // Toggle completion on click
                 span.addEventListener("click", () => {
+                    const wasCompleted = task.completed;
+
                     task.completed = !task.completed;
+
+                    // Sound effect only when marking as complete
+                    if (!wasCompleted && task.complete) {
+                        completeSound.currentTime = 0;
+                        completeSound.play();
+                    }
+                    
                     saveAndRender();
                 });
 
@@ -72,9 +83,14 @@ function renderTasks() {
             const delBtn = document.createElement("button");
             delBtn.textContent = "X";
             delBtn.addEventListener("click", () => {
+                // Sound effect delete
+                deleteSound.currentTime = 0;
+                deleteSound.play();
+
                 tasks.splice(index, 1);
                 saveAndRender();
             });
+
             li.appendChild(delBtn);
 
             list.appendChild(li);
